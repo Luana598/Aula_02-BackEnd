@@ -13,12 +13,6 @@ var calculoMedia = require('./modulo/media.js')
 var readline = require('readline')
 
 
-//Cria um objeto para criar uma Interface de entrada de dados via terminal
-var entradaDeDados = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
-
 /******************************************************************************************************************************************
  *                    FORMAS DE CRIAÇÃO DE VARIÁVEIS
  * LET -> Permite criar variáveis dentro de um escopo de bloco, onde elas nacem e morrem dentro do bloco
@@ -55,14 +49,24 @@ var entradaDeDados = readline.createInterface({
  * NÃO    not     !
  *******************************************************************************************************************************************/
 
-const MESSAGE_ERRO = 'ERRO: Valor inapropriado, insira apenas números entre 0 e 10!'
+
+//Cria um objeto para criar uma Interface de entrada de dados via terminal
+var entradaDeDados = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+})
+
+//MENSAGENS DE ERRO DA APLICAÇÃO
+const MESSAGE_ERROR_OUT_OF_RANGE = 'ERRO: Valor inapropriado, insira apenas números entre 0 e 10!'
+const MESSAGE_ERROR_EMPTY = "ERRO: existem campos que não foram preenchidos"
+const MESSAGE_ERROR_NOT_NUMBER = 'ERRO: Não é possível calcular com a entrada de letras'
 
 //Entrada de dados do nome do aluno
 entradaDeDados.question('Digite o nome do aluno: ', function (nome) {
     let nomeAluno = String(nome).toUpperCase()
 
     if (nomeAluno == '') {
-        console.log('ERRO: O campo nome não pode ser vazio!')
+        console.log(MESSAGE_ERROR_EMPTY)
         entradaDeDados.close()
 
     } else {
@@ -72,7 +76,7 @@ entradaDeDados.question('Digite o nome do aluno: ', function (nome) {
             let nota1 = valor1
 
             if (nota1 == '' || Number(nota1) < 0 || Number(nota1) > 10) {
-                console.log(MESSAGE_ERRO)
+                console.log(MESSAGE_ERROR_OUT_OF_RANGE)
                 entradaDeDados.close
             } else {
                 //Entrada de dados Nota 2
@@ -80,7 +84,7 @@ entradaDeDados.question('Digite o nome do aluno: ', function (nome) {
                     let nota2 = valor2
 
                     if (nota2 == '' || Number(nota2) < 0 || Number(nota2) > 10) {
-                        console.log(MESSAGE_ERRO)
+                        console.log(MESSAGE_ERROR_OUT_OF_RANGE)
                         entradaDeDados.close()
                     } else {
                         //Entrada de dados Nota 3
@@ -88,7 +92,7 @@ entradaDeDados.question('Digite o nome do aluno: ', function (nome) {
                             let nota3 = valor3
 
                             if (nota3 == '' || Number(nota3) < 0 || Number(nota3) > 10) {
-                                console.log(MESSAGE_ERRO)
+                                console.log(MESSAGE_ERROR_OUT_OF_RANGE)
                                 entradaDeDados.close()
                             } else {
                                 //Entrada de dados Nota 4
@@ -98,10 +102,10 @@ entradaDeDados.question('Digite o nome do aluno: ', function (nome) {
 
 
                                     if (nota4 == '' || Number(nota4) < 0 || Number(nota4) > 10) {
-                                        console.log(MESSAGE_ERRO)
+                                        console.log(MESSAGE_ERROR_OUT_OF_RANGE)
                                         entradaDeDados.close
                                     } else if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4)) {
-                                        console.log('ERRO: Não é possível calcular com a entrada de letras')
+                                        console.log(MESSAGE_ERROR_NOT_NUMBER)
 
                                     } else {
 
